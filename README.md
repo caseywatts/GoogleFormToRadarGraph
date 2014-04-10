@@ -23,14 +23,14 @@ Tool to plot google form data as a radar graph. Data collected with a google for
 
 ##Example of Use
 ###
-- Image above
 - [Example google form that students fill out](https://docs.google.com/a/yale.edu/forms/d/1Kgj2TaeOA-BO2vChj4YZ8xPcTAKuNfncil9Br8yKOtY/viewform)
 - [Example form output as a google spreadsheet](https://docs.google.com/a/yale.edu/spreadsheet/ccc?key=0AopzqThqXEKfdC1SUUxKRjU0Y0dGcTJhMmQwdnFfTEE#gid=0)
+- Images above show the ouput
 
 ###Publishing the File
 I recommend publishing this on google drive, since that's a very quick
-and easy way to host/share a file this lightweight. [see
-instructions](linktoinstructions). Any other server would be good too, of
+and easy way to host/share a file this lightweight. [see Google's 
+instructions](https://support.google.com/drive/answer/2881970?hl=en). Any other server would be good too, of
 course.
 
 ###Sending the form to students
@@ -66,6 +66,9 @@ But if you host it to google drive it syncs in seconds and then can import the r
 
 ###Sustainability
 This could probably pretty easily be made to be [fork-n-go](https://github.com/jlord/sheetsee.js/blob/master/docs/fork-n-go.md) or a [module](https://github.com/jlord/sheetsee.js/blob/master/docs/custom-charts.md).
+
+###Desired Improvements
+* Automatically email the result link after submission (maybe via a google script)
 
 ##Credits
 D3.js Radar Chart example taken from [here](http://bl.ocks.org/nbremer/raw/6506614/)
