@@ -67,7 +67,7 @@ But if you host it to google drive it syncs in seconds and then can import the r
 ###Desired Improvements
 * The google spreadsheet output could auto-calculate the groups somehow. Headers from "grid" type google input get headers like `UnixSection[mv, cp, pwd]`. There is probably a clever google sheets equation that could automatically do this.
 * Automatically email the result link after submission (maybe via a google script)
-* This could probably pretty easily be made to be [fork-n-go](https://github.com/jlord/sheetsee.js/blob/master/docs/fork-n-go.md) or a [module](https://github.com/jlord/sheetsee.js/blob/master/docs/custom-charts.md).
+* The D3.js part could probably pretty easily be made to be [fork-n-go](https://github.com/jlord/sheetsee.js/blob/master/docs/fork-n-go.md) or a [module](https://github.com/jlord/sheetsee.js/blob/master/docs/custom-charts.md) to be used with google spreadsheets data more generally.
 
 ##Credits
 D3.js Radar Chart example taken from [here](http://bl.ocks.org/nbremer/raw/6506614/)
