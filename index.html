@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>Mad Skillz</title>
+		<script src='js/jquery.js '></script>
+		<script type="text/javascript" src='js/d3.js'></script>
+		<script type="text/javascript" src='js/tabletop.js'></script>
+		<script type="text/javascript" src='js/sheetsee.js'></script>
+		<script type="text/javascript" src='js/radar-chart-min.js'></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="css/site.css"> 
+	</head>
+
+<body>
+
+  <!-- To set this up
+     1. Set up your private spreadsheet and publish it (see sheetsee.js for instructions)
+     2. set the "var URL =" to the google spreadsheet's identifier (see sheetsee.js for instructions)
+     3. in function showInfo change the labels and variables to match the ones from your spreadsheet
+  -->
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    usernumber = getURLParameter("usernumber");
+  	var gData
+  	var URL = "0AopzqThqXEKfdHFEYVRBd3JxMFJKOTZtWHBhei1oc1E"
+		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } ) 
+	})
+
+  function getURLParameter(name) {
+      return decodeURI(
+          (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+      );
+  }
+
+  function switchit(num) {//trying to make an interface to switch between users more easily, in progress.
+    alert("switch")
+    usernumber = num;
+    showInfo(gData);
+  }
+
+  function showInfo(data) {
+    gData = data
+
+    //Print the usernumber and role to the page, in the divs specified
+    $("#usernumber").html(usernumber);
+    $("#role").html(gData[usernumber].role);
+
+    //Somehow, having a blank array in the array makes the later ones not show, but they still are used in the maximum calculations. That's what we want :)
+    //Otherwise, different users would have different scales :x
+    //
+    //TODO: this code isn't DRY at all, it was quicker for me to find-and-replace the column names (like Unix and htmlcss). It should and could be DRYed up though!
+    d = [
+     [//Specific user's data
+           {axis: "Unix", value: gData[usernumber].unixnormalized},
+           {axis: "HTML/CSS", value: gData[usernumber].htmlcssnormalized},
+           {axis: "Ruby", value: gData[usernumber].rubynormalized}, 
+           {axis: "Git/Github", value: gData[usernumber].gitgithubnormalized}, 
+           {axis: "Web Servers", value: gData[usernumber].webserversnormalized}
+      ],
+      [//Average user's data
+           {axis: "Unix", value: Sheetsee.getColumnAverage(gData, "unixnormalized")},
+           {axis: "HTML/CSS", value: Sheetsee.getColumnAverage(gData, "htmlcssnormalized")},
+           {axis: "Ruby", value: Sheetsee.getColumnAverage(gData, "rubynormalized")},
+           {axis: "Git/Github", value: Sheetsee.getColumnAverage(gData, "gitgithubnormalized")},
+           {axis: "Web Servers", value: Sheetsee.getColumnAverage(gData, "webserversnormalized")}
+      ],
+      [//empty array somehow makes it so the later ones aren't drawn, but are included in calculation of maximum
+      ],
+      [//the maximum of each column should be used as the maximum of the whole radar chart.
+           {axis: "Unix", value: Sheetsee.getMax(gData, "unixnormalized")[0].unixnormalized},
+           {axis: "HTML/CSS", value: Sheetsee.getMax(gData, "htmlcssnormalized")[0].htmlcssnormalized},
+           {axis: "Ruby", value: Sheetsee.getMax(gData, "rubynormalized")[0].rubynormalized},
+           {axis: "Git/Github", value: Sheetsee.getMax(gData, "gitgithubnormalized")[0].gitgithubnormalized},
+           {axis: "Web Servers", value: Sheetsee.getMax(gData, "webserversnormalized")[0].webserversnormalized}
+      ],
+    ];
+
+    RadarChart.draw("#chart", d);
+    RadarChart.draw("#chart2", d);
+  }
+</script>
+
+
+
+<div>
+  <h1>Developers have crazy good skills & specialties</h1>
+  <div style="font-size:small;">
+    This radar chart is drawn using live data, thanks to <a href="https://github.com/jlord/sheetsee.js/">Sheetsee.js</a> and <a href="https://github.com/alangrafu/radar-chart-d3">Radar Chart D3</a>.
+  </div>
+  <span style="color:#1f77b4;font-weight:bold;">Blue = <span id="role"></span> <span id="usernumber"></span></span><br>
+  <span style="color:#ff7f0e;font-weight:bold;">Orange = Average of everyone</span><br>
+  <!--Green = Other ST Number <span id="otherusernumber"></span>-->
+</div>
+
+
+<div id="chart">
+</div>
+
+<div id="chart2">
+</div>
+
+
+</body>
+</html>
