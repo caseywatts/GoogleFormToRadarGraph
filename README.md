@@ -4,7 +4,6 @@ SkillsEvaluation
 Tool to plot google form data as a radar graph. Data collected with a google form, manipulated with Sheetsee.js, and visualized by D3.js.
 
 ![Example Visualization](/img/radar1.png "Example Visualization")
-![Example Visualization](/img/radar2.png "Example Visualization")
 ![Example Visualization](/img/radar3.png "Example Visualization")
 
 
